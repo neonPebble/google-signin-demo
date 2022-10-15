@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [userInfo, setUserInfo] = useState("");
+  const [userToken, setUserToken] = useState("");
   async function handleResponse(response) {
     console.log(response);
     fetch("http://localhost:7000/api/auth/google-sign-in", {
@@ -23,12 +23,12 @@ function App() {
       })
       .then((data) => {
         // set the token , save to store local storage and navigate to next in flow
-        setUserInfo(data.data);
+        setUserToken(data.data);
       });
   }
   useEffect(() => {
     /* global google */
-    // Add script tag <script src="https://accounts.google.com/gsi/client" async defer></script> to index.html. That creates global google.
+    // Add script tag <script src="https://accounts.google.com/gsi/client"></script> to index.html. That creates global google. You may add async and defer tag for performance.
     google.accounts.id.initialize({
       client_id:
         "898210389645-po609nrob379rmvihsapg6q9avfh4knv.apps.googleusercontent.com",
@@ -44,7 +44,7 @@ function App() {
     <div className="App">
       <header className="App-header">Google SIgnIn</header>
       <div id="signInContainer"></div>
-      <div>{userInfo}</div>
+      <div>{userToken}</div>
     </div>
   );
 }
